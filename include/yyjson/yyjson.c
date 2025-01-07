@@ -392,6 +392,9 @@ yyjson_api uint32_t yyjson_version(void) {
 #ifndef YYJSON_DISABLE_NON_STANDARD
 #define YYJSON_DISABLE_NON_STANDARD 0
 #endif
+#ifndef YYJSON_READER_CONTAINER_RECURSION_LIMIT
+#define YYJSON_READER_CONTAINER_RECURSION_LIMIT 1024
+#endif
 
 
 
@@ -4765,6 +4768,8 @@ fail_character:
     return_err(cur, UNEXPECTED_CHARACTER, "unexpected character");
 fail_garbage:
     return_err(cur, UNEXPECTED_CONTENT, "unexpected content after document");
+fail_recursion:
+    return_err(cur, RECURSION_DEPTH, "array and object recursion depth exceeded");
     
 #undef has_flag
 #undef return_err
@@ -4823,6 +4828,7 @@ static_inline yyjson_doc *read_root_minify(u8 *hdr,
     yyjson_doc *doc; /* the JSON document, equals to val_hdr */
     const char *msg; /* error message */
     
+    u32 container_depth = 0; /* limit on number of open array and map */
     bool raw; /* read number as raw */
     bool ext; /* allow inf and nan */
     bool inv; /* allow invalid unicode */
@@ -4859,6 +4865,11 @@ static_inline yyjson_doc *read_root_minify(u8 *hdr,
     }
     
 arr_begin:
+    container_depth++;
+    if (unlikely(container_depth >= YYJSON_READER_CONTAINER_RECURSION_LIMIT)) {
+        goto fail_recursion;
+    }
+
     /* save current container */
     ctn->tag = (((u64)ctn_len + 1) << YYJSON_TAG_BIT) |
                (ctn->tag & YYJSON_TAG_MASK);
@@ -4956,6 +4967,7 @@ arr_val_end:
     goto fail_character;
     
 arr_end:
+    container_depth--;
     /* get parent container */
     ctn_parent = (yyjson_val *)(void *)((u8 *)ctn - ctn->uni.ofs);
     
@@ -4974,6 +4986,11 @@ arr_end:
     }
     
 obj_begin:
+    container_depth++;
+    if (unlikely(container_depth >= YYJSON_READER_CONTAINER_RECURSION_LIMIT)) {
+        goto fail_recursion;
+    }
+
     /* push container */
     ctn->tag = (((u64)ctn_len + 1) << YYJSON_TAG_BIT) |
                (ctn->tag & YYJSON_TAG_MASK);
@@ -5100,6 +5117,7 @@ obj_val_end:
     goto fail_character;
     
 obj_end:
+    container_depth--;
     /* pop container */
     ctn_parent = (yyjson_val *)(void *)((u8 *)ctn - ctn->uni.ofs);
     /* point to the next value */
@@ -5147,7 +5165,9 @@ fail_character:
     return_err(cur, UNEXPECTED_CHARACTER, "unexpected character");
 fail_garbage:
     return_err(cur, UNEXPECTED_CONTENT, "unexpected content after document");
-    
+fail_recursion:
+    return_err(cur, RECURSION_DEPTH, "array and object recursion depth exceeded");
+
 #undef has_flag
 #undef val_incr
 #undef return_err
@@ -5206,6 +5226,7 @@ static_inline yyjson_doc *read_root_pretty(u8 *hdr,
     yyjson_doc *doc; /* the JSON document, equals to val_hdr */
     const char *msg; /* error message */
     
+    u32 container_depth = 0; /* limit on number of open array and map */
     bool raw; /* read number as raw */
     bool ext; /* allow inf and nan */
     bool inv; /* allow invalid unicode */
@@ -5244,6 +5265,11 @@ static_inline yyjson_doc *read_root_pretty(u8 *hdr,
     }
     
 arr_begin:
+    container_depth++;
+    if (unlikely(container_depth >= YYJSON_READER_CONTAINER_RECURSION_LIMIT)) {
+        goto fail_recursion;
+    }
+
     /* save current container */
     ctn->tag = (((u64)ctn_len + 1) << YYJSON_TAG_BIT) |
                (ctn->tag & YYJSON_TAG_MASK);
@@ -5358,6 +5384,7 @@ arr_val_end:
     goto fail_character;
     
 arr_end:
+    container_depth--;
     /* get parent container */
     ctn_parent = (yyjson_val *)(void *)((u8 *)ctn - ctn->uni.ofs);
     
@@ -5377,6 +5404,11 @@ arr_end:
     }
     
 obj_begin:
+    container_depth++;
+    if (unlikely(container_depth >= YYJSON_READER_CONTAINER_RECURSION_LIMIT)) {
+        goto fail_recursion;
+    }
+
     /* push container */
     ctn->tag = (((u64)ctn_len + 1) << YYJSON_TAG_BIT) |
                (ctn->tag & YYJSON_TAG_MASK);
@@ -5523,6 +5555,7 @@ obj_val_end:
     goto fail_character;
     
 obj_end:
+    container_depth--;
     /* pop container */
     ctn_parent = (yyjson_val *)(void *)((u8 *)ctn - ctn->uni.ofs);
     /* point to the next value */
@@ -5571,7 +5604,9 @@ fail_character:
     return_err(cur, UNEXPECTED_CHARACTER, "unexpected character");
 fail_garbage:
     return_err(cur, UNEXPECTED_CONTENT, "unexpected content after document");
-    
+fail_recursion:
+    return_err(cur, RECURSION_DEPTH, "array and object recursion depth exceeded");
+
 #undef has_flag
 #undef val_incr
 #undef return_err

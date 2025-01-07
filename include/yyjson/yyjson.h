@@ -657,6 +657,9 @@ static const yyjson_read_code YYJSON_READ_ERROR_FILE_OPEN               = 12;
 /** Failed to read a file. */
 static const yyjson_read_code YYJSON_READ_ERROR_FILE_READ               = 13;
 
+/** Document exceeded YYJSON_READER_CONTAINER_RECURSION_LIMIT.  */
+static const yyjson_read_code YYJSON_READ_ERROR_RECURSION_DEPTH         = 14;
+
 /** Error information for JSON reader. */
 typedef struct yyjson_read_err {
     /** Error code, see `yyjson_read_code` for all possible values. */
