@@ -19,7 +19,7 @@ jobs:
           { version: '3.11', abi: 'cp311-cp311' },
         ]
     env:
-      PATH: /home/runner/.local/bin:/home/runner/.cargo/bin:/opt/python/${{ matrix.python.abi }}/bin:/opt/rh/devtoolset-10/root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      PATH: /root/.local/bin:/root/.cargo/bin:/opt/python/${{ matrix.python.abi }}/bin:/opt/rh/devtoolset-10/root/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
       CC: "gcc"
       CFLAGS: "-O2 -fno-plt -flto"
       LDFLAGS: "-O2 -flto -Wl,--as-needed"
@@ -35,9 +35,9 @@ jobs:
         cat <<EOF | docker exec -w /seal -e PATH -e CC -e CFLAGS -e LDFLAGS -e CARGO_UNSTABLE_SPARSE_REGISTRY -i ${{ steps.start-container.outputs.container_id }} bash
         curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
         python3 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
-        ls -la /home/runner/.cargo
-        ls -la /home/runner/.cargo/bin
-        ls -la /home/runner/.cargo/env
+        ls -la /root/.cargo
+        ls -la /root/.cargo/bin
+        ls -la /root/.cargo/env
         ls -la $HOME/.cargo
         ls -la $HOME/.cargo/bin
         ls -la $HOME/.cargo/env
