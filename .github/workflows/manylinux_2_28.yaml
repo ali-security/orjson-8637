@@ -47,6 +47,12 @@ jobs:
     - run: ./integration/run thread
     - run: ./integration/run http
     - run: git config --global --add safe.directory /__w/orjson/orjson
+    - name: Upload wheels
+      uses: actions/upload-artifact@v4
+      with:
+        name: wheels_${{ github.job }}_${{ github.run_id }}_${{ github.run_attempt }}_${{ github.run_number}}
+        path: target/wheels
+
     - name: deploy
       run: maturin upload --skip-existing --username "$MATURIN_USERNAME" target/wheels/orjson-*.whl
       if: "startsWith(github.ref, 'refs/tags/')"
