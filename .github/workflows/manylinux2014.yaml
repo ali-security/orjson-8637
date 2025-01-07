@@ -35,6 +35,7 @@ jobs:
         cat <<EOF | docker exec -w /seal -e PATH -e CC -e CFLAGS -e LDFLAGS -e CARGO_UNSTABLE_SPARSE_REGISTRY -i ${{ steps.start-container.outputs.container_id }} bash
         echo $HOME
         echo $PATH
+        ls -la
         curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
         python3 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
         python3 -m maturin build --release --strip --features=unstable-simd,yyjson --compatibility manylinux2014 --interpreter python${{ matrix.python.version }}
