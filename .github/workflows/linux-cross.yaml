@@ -54,7 +54,7 @@ jobs:
           venv/bin/pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' orjson --no-index --find-links dist/ --force-reinstall
           venv/bin/python -m pytest -s -rxX -v test
     - name: Upload wheels
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: wheels
         path: dist
