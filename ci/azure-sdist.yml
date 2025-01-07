@@ -14,13 +14,13 @@ steps:
   displayName: rustup
 - bash: PATH=$(path) rustup default $(toolchain)
   displayName: ensure toolchain
-- bash: PATH=$(path) $(interpreter) -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
+- bash: PATH=$(path) $(interpreter) -m pip install --index-url "https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/" --user --upgrade pip "maturin>=0.14,<0.15" wheel
   displayName: build dependencies
-- bash: PATH=$(path) $(interpreter) -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user -r test/requirements.txt -r integration/requirements.txt mypy==0.991
+- bash: PATH=$(path) $(interpreter) -m pip install --index-url "https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/" --user -r test/requirements.txt -r integration/requirements.txt mypy==0.991
   displayName: test dependencies
 - bash: PATH=$(path) maturin sdist
   displayName: package sdist
-- bash: PATH=$(path) $(interpreter) -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user target/wheels/orjson*.tar.gz
+- bash: PATH=$(path) $(interpreter) -m pip install --index-url "https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/" --user target/wheels/orjson*.tar.gz
   displayName: install
 - bash: PATH=$(path) pytest -v test
   displayName: pytest
