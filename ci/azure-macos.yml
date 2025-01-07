@@ -47,3 +47,5 @@ steps:
   displayName: deploy x86_64
 - bash: ./ci/deploy target/wheels/*_universal2.whl
   displayName: deploy universal2
+- publish: target/wheels
+  artifact: wheels_$(interpreter)_$(toolchain)
