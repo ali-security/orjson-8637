@@ -25,7 +25,7 @@ jobs:
       LDFLAGS: "-O2 -flto -Wl,--as-needed"
       CARGO_UNSTABLE_SPARSE_REGISTRY: "true"
     container:
-      image: quay.io/pypa/manylinux2014_x86_64:latest
+      image: quay.io/pypa/manylinux2014_x86_64:2022-11-28-5d13db4	
       options: --user 0
     steps:
     - run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
