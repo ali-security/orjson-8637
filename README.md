@@ -78,8 +78,8 @@ available in the repository.
 To install a wheel from PyPI:
 
 ```sh
-pip install --upgrade "pip>=20.3" # manylinux_x_y, universal2 wheel support
-pip install --upgrade orjson
+pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --upgrade "pip>=20.3" # manylinux_x_y, universal2 wheel support
+pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --upgrade orjson
 ```
 
 To build a wheel, see [packaging](https://github.com/ijl/orjson#packaging).

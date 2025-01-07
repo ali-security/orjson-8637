@@ -17,11 +17,11 @@ steps:
   commands:
     - yum install -y clang lld
     - curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
-    - python3.11 -m pip install --user --upgrade pip "maturin>=0.14,<0.15" wheel
+    - python3.11 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
     - cargo fetch
     - maturin build --release --strip --compatibility manylinux_2_28 --features=unstable-simd,yyjson --interpreter python3.11
-    - python3.11 -m pip install --user target/wheels/orjson*.whl
-    - python3.11 -m pip install --user -r test/requirements.txt -r integration/requirements.txt
+    - python3.11 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user target/wheels/orjson*.whl
+    - python3.11 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user -r test/requirements.txt -r integration/requirements.txt
     - pytest -s -rxX -v test
     - ./integration/run thread
     - ./integration/run http
@@ -46,11 +46,11 @@ steps:
   commands:
     - yum install -y clang lld
     - curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
-    - python3.10 -m pip install --user --upgrade pip "maturin>=0.14,<0.15" wheel
+    - python3.10 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
     - cargo fetch
     - maturin build --release --strip --compatibility manylinux_2_28 --features=unstable-simd,yyjson --interpreter python3.10
-    - python3.10 -m pip install --user target/wheels/orjson*.whl
-    - python3.10 -m pip install --user -r test/requirements.txt -r integration/requirements.txt
+    - python3.10 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user target/wheels/orjson*.whl
+    - python3.10 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user -r test/requirements.txt -r integration/requirements.txt
     - pytest -s -rxX -v test
     - ./integration/run thread
     - ./integration/run http
@@ -75,10 +75,10 @@ steps:
   commands:
     - yum install -y clang lld
     - curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
-    - python3.9 -m pip install --user --upgrade pip "maturin>=0.14,<0.15" wheel
+    - python3.9 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
     - maturin build --release --strip --compatibility manylinux_2_28 --features=unstable-simd,yyjson --interpreter python3.9
-    - python3.9 -m pip install --user target/wheels/orjson*.whl
-    - python3.9 -m pip install --user -r test/requirements.txt -r integration/requirements.txt
+    - python3.9 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user target/wheels/orjson*.whl
+    - python3.9 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user -r test/requirements.txt -r integration/requirements.txt
     - pytest -s -rxX -v test
     - ./integration/run thread
     - ./integration/run http
@@ -103,10 +103,10 @@ steps:
   commands:
     - yum install -y clang lld
     - curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
-    - python3.8 -m pip install --user --upgrade pip "maturin>=0.14,<0.15" wheel
+    - python3.8 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
     - maturin build --release --strip --compatibility manylinux_2_28 --features=unstable-simd,yyjson --interpreter python3.8
-    - python3.8 -m pip install --user target/wheels/orjson*.whl
-    - python3.8 -m pip install --user -r test/requirements.txt -r integration/requirements.txt
+    - python3.8 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user target/wheels/orjson*.whl
+    - python3.8 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user -r test/requirements.txt -r integration/requirements.txt
     - pytest -s -rxX -v test
     - ./integration/run thread
     - ./integration/run http
@@ -131,10 +131,10 @@ steps:
   commands:
     - yum install -y clang lld
     - curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
-    - python3.7 -m pip install --user --upgrade pip "maturin>=0.14,<0.15" wheel
+    - python3.7 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
     - maturin build --release --strip --compatibility manylinux_2_28 --features=unstable-simd,yyjson --interpreter python3.7
-    - python3.7 -m pip install --user target/wheels/orjson*.whl
-    - python3.7 -m pip install --user -r test/requirements.txt -r integration/requirements.txt
+    - python3.7 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user target/wheels/orjson*.whl
+    - python3.7 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user -r test/requirements.txt -r integration/requirements.txt
     - pytest -s -rxX -v test
     - ./integration/run thread
     - ./integration/run http

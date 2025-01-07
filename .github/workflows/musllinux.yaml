@@ -24,7 +24,7 @@ jobs:
             arch: x86_64
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
+    - uses: MatteoH2O1999/setup-python@v4
       with:
         python-version: ${{ matrix.python.version }}
     - name: Build wheels
@@ -56,9 +56,9 @@ jobs:
 
           PYTHON=python${{ matrix.python.version }}
           $PYTHON -m venv venv
-          venv/bin/pip install -U pip
-          venv/bin/pip install -r test/requirements.txt
-          venv/bin/pip install orjson --no-index --find-links dist/ --force-reinstall
+          venv/bin/pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' -U pip
+          venv/bin/pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' -r test/requirements.txt
+          venv/bin/pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' orjson --no-index --find-links dist/ --force-reinstall
           venv/bin/python -m pytest -s -rxX -v test
     - name: Upload wheels
       uses: actions/upload-artifact@v2
@@ -75,10 +75,10 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: wheels
-      - uses: actions/setup-python@v2
+      - uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: "3.10"
-      - run: pip install "maturin>=0.14,<0.15"
+      - run: pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' "maturin>=0.14,<0.15"
       - name: deploy
         run: maturin upload --skip-existing --username "$MATURIN_USERNAME" *.whl
         env:

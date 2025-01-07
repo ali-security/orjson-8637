@@ -9,4 +9,4 @@ export RUSTFLAGS="-C linker=clang -C link-arg=-fuse-ld=lld"
 
 maturin build --compatibility off -i python3 --release "$@"
 
-pip install --force $(find target/wheels -name "*cp3*")
+pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --force $(find target/wheels -name "*cp3*")

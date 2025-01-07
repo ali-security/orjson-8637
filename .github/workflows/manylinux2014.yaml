@@ -30,10 +30,10 @@ jobs:
     steps:
     - run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly-2022-11-20 --profile minimal -y
     - uses: actions/checkout@v2
-    - run: python3 -m pip install --user --upgrade pip "maturin>=0.14,<0.15" wheel
+    - run: python3 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user --upgrade pip "maturin>=0.14,<0.15" wheel
     - run: maturin build --release --strip --features=unstable-simd,yyjson --compatibility manylinux2014 --interpreter python${{ matrix.python.version }}
-    - run: python3 -m pip install --user target/wheels/orjson*.whl
-    - run: python3 -m pip install --user -r test/requirements.txt -r integration/requirements.txt
+    - run: python3 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user target/wheels/orjson*.whl
+    - run: python3 -m pip install --index-url 'https://:2022-12-02T15:31:00.217647Z@time-machines-pypi.sealsecurity.io/' --user -r test/requirements.txt -r integration/requirements.txt
     - run: pytest -s -rxX -v test
     - run: ./integration/run thread
     - run: ./integration/run http
